@@ -2,6 +2,8 @@ import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import cities from "./data/cities.json";
 import mapbox_access from "./data/mapbox.json";
+import map_bg from "./assets/map-bg.jpg";
+import logomark from "./assets/logomark.png";
 
 
 mapboxgl.accessToken = mapbox_access.token;
@@ -46,11 +48,26 @@ export default function App() {
   });
 
   return (
-    <div className="h-screen">
-      <div className="sidebar">
+    <div className="h-screen text-white">
+      <div className="absolute top-0 left-0 m-[6px]">
+        <div className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-2 bg-opacity-[67%]">
+          <img
+            className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
+            src={logomark}
+            alt="Logomark"
+          />
+          <h1 className="w-20 my-auto text-lg font-normal leading-none text-center">
+            SUBWAY <span className="font-bold tracking-wide">SOLVER</span>
+          </h1>
+        </div>
+      </div>
+      <div className="w-full h-full">
+        <img src={map_bg} alt="Los Angeles" />
+      </div>
+      {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div ref={mapContainer} className="map-container" />
+      <div ref={mapContainer} className="map-container" /> */}
     </div>
   );
 }
