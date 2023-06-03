@@ -2,6 +2,19 @@
   "Los Angeles" : {
     "lat": 34.05,
     "lon": -118.24,
-    "zoom": 9.5
+    "zoom": 9.5,
+    "country": "US"
+  },
+  "New York" : {
+    "lat": 40.71,
+    "lon": -74.00,
+    "zoom": 9.5,
+    "country": "US"
+  },
+  "Chicago" : {
+    "lat": 41.88,
+    "lon": -87.63,
+    "zoom": 9.5,
+    "country": "US"
   }
 }
