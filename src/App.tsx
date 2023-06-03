@@ -8,6 +8,15 @@ import search from "./assets/city.svg";
 
 import { Combobox, Transition } from "@headlessui/react";
 
+const logos = [
+  ["SUBWAY", "SOLVER"], 
+  ["TRANSIT", "TUTOR"], 
+  ["METRO", "MAPPER"],
+  ["LINE", "LINK"],
+  ["ROUTE", "RUNNER"],
+  ["PATH", "PLOT"]
+];
+
 mapboxgl.accessToken = mapbox_access.token;
 
 export default function App() {
@@ -16,6 +25,7 @@ export default function App() {
   const [lng, setLng] = useState(cities["Los Angeles"].lon);
   const [lat, setLat] = useState(cities["Los Angeles"].lat);
   const [zoom, setZoom] = useState(cities["Los Angeles"].zoom);
+  const [logo, setLogo] = useState(logos[0]);
 
   const [selectedCity, setSelectedCity] = useState("Los Angeles");
   const [query, setQuery] = useState("");
@@ -61,15 +71,15 @@ export default function App() {
 
   return (
     <div className="h-screen text-white">
-      <div className="absolute top-0 left-0 m-[6px] flex flex-row gap-[6px]">
-        <div className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-2 bg-opacity-[67%]">
+      <div className="absolute top-0 left-0 m-[6px] flex flex-row gap-[6px] ">
+        <div onClick={() => setLogo(logos[Math.floor(Math.random() * logos.length)])} className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-2 bg-opacity-[67%] cursor-pointer">
           <img
             className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
             src={logomark}
             alt="Logomark"
           />
           <h1 className="w-20 my-auto text-lg font-normal leading-none text-center">
-            SUBWAY <span className="font-bold tracking-wide">SOLVER</span>
+            {logo[0]} <span className="font-bold tracking-wide">{logo[1]}</span>
           </h1>
         </div>
         <div className="w-64 h-[71.38px] ">
@@ -109,6 +119,11 @@ export default function App() {
               </Combobox.Options>
             </Transition>
           </Combobox>
+        </div>
+      </div>
+      <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px]">
+        <div className="">
+        
         </div>
       </div>
       <div className="w-full h-full">
