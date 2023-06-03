@@ -5,6 +5,8 @@ import mapbox_access from "./data/mapbox.json";
 import map_bg from "./assets/map-bg.jpg";
 import logomark from "./assets/logomark.png";
 import search from "./assets/city.svg";
+import plus from "./assets/plus.svg";
+import minus from "./assets/minus.svg";
 
 import { Combobox, Transition } from "@headlessui/react";
 
@@ -14,7 +16,7 @@ const logos = [
   ["METRO", "MAPPER"],
   ["LINE", "LINK"],
   ["ROUTE", "RUNNER"],
-  ["PATH", "PLOT"]
+  ["PATH", "PLOTTER"]
 ];
 
 mapboxgl.accessToken = mapbox_access.token;
@@ -72,7 +74,12 @@ export default function App() {
   return (
     <div className="h-screen text-white">
       <div className="absolute top-0 left-0 m-[6px] flex flex-row gap-[6px] ">
-        <div onClick={() => setLogo(logos[Math.floor(Math.random() * logos.length)])} className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-2 bg-opacity-[67%] cursor-pointer">
+        <div
+          onClick={() =>
+            setLogo(logos[Math.floor(Math.random() * logos.length)])
+          }
+          className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-2 bg-opacity-[67%] cursor-pointer"
+        >
           <img
             className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
             src={logomark}
@@ -121,9 +128,14 @@ export default function App() {
           </Combobox>
         </div>
       </div>
-      <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px]">
-        <div className="">
-        
+      <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px] mb-8">
+        <div className="flex flex-col h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden">
+          <button className="w-full h-full">
+            <img src={plus} alt="Zoom In" className="pt-1 m-auto h-7" />
+          </button>
+          <button className="w-full h-full">
+            <img src={minus} alt="Zoom Out" className="pb-1 m-auto h-7" />
+          </button>
         </div>
       </div>
       <div className="w-full h-full">
