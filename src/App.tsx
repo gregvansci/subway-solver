@@ -8,6 +8,8 @@ import search from "./assets/city.svg";
 import plus from "./assets/plus.svg";
 import minus from "./assets/minus.svg";
 import open from "./assets/up.svg";
+import download from "./assets/download.svg";
+import link from "./assets/link.svg";
 
 import { Combobox, Transition } from "@headlessui/react";
 
@@ -131,6 +133,14 @@ export default function App() {
         </div>
       </div>
       <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px] mb-8">
+        <div className={`flex flex-col ${toolboxOpen ? "visible" : "hidden"} h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden`}>                  
+          <button className="w-full h-full">
+            <img src={link} alt="Link" className="h-6 pt-1 m-auto" />
+          </button>
+          <button className="w-full h-full">
+            <img src={download} alt="Download" className="h-6 pb-1 m-auto" />
+          </button>
+        </div>
         <div onClick={() => setToolboxOpen(!toolboxOpen)}>
           <button className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
             <img src={open} alt="Open" className={`h-5 m-auto ${toolboxOpen ? 'rotate-180' : ''}`} />
