@@ -32,9 +32,19 @@ export default function App() {
   const [zoom, setZoom] = useState(cities["Los Angeles"].zoom);
   const [logo, setLogo] = useState(logos[0]);
   const [toolboxOpen, setToolboxOpen] = useState(false);
+  const [lineCount, setLineCount] = useState(1);
+  const numbers = Array.from({ length: 32 }, (_, i) => i + 1);
 
   const [selectedCity, setSelectedCity] = useState("Los Angeles");
   const [query, setQuery] = useState("");
+
+  const scrollToLeft = () => {
+    setLineCount(Math.max(lineCount - 1, 1));
+  }
+
+  const scrollToRight = () => {
+    setLineCount(Math.min(lineCount + 1, 32));
+  }
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -82,7 +92,7 @@ export default function App() {
           onClick={() =>
             setLogo(logos[Math.floor(Math.random() * logos.length)])
           }
-          className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-2 bg-opacity-[67%] cursor-pointer"
+          className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer"
         >
           <img
             className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
@@ -93,7 +103,7 @@ export default function App() {
             {logo[0]} <span className="font-bold tracking-wide">{logo[1]}</span>
           </h1>
         </div>
-        <div className="w-64 h-[71.38px] ">
+        <div className="w-64 h-[65.39px] ">
           <Combobox value={selectedCity} onChange={setSelectedCity}>
             <div className="flex flex-row gap-3 h-full p-2 px-3 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
               <Combobox.Button>
@@ -131,9 +141,47 @@ export default function App() {
             </Transition>
           </Combobox>
         </div>
+        <div className="flex flex-row gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+          <button>
+            <img src={minus} alt="Decrement line count" className="h-6" />
+          </button>
+          <div className="flex flex-col my-auto">
+            <div className="flex items-center">
+              <div className="flex flex-row w-48 overflow-x-scroll snap-mandatory snap-x no-scrollbar">
+                <div className="w-2 mx-5 text-lg snap-center"></div>
+                <div className="w-2 mx-5 text-lg snap-center"></div>
+                {numbers.map((number) => (
+                  <div key={number} className="w-2 mx-4 text-xl text-center snap-center">
+                    {number}
+                  </div>
+                ))}
+                <div className="w-2 mx-5 text-lg snap-center"></div>
+                <div className="w-2 mx-5 text-lg snap-center"></div>
+              </div>
+              {/* <div className="flex h-10 overflow-x-scroll w-60 no-scrollbar">
+                {numbers.map((number) => (
+                  <div
+                    key={number}
+                    className={`w-12 mx-auto h-10 flex items-center justify-center border border-gray-300 ${number === lineCount ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                  >
+                    {number}
+                  </div>
+                ))}
+              </div> */}
+            </div>
+            <p className="mx-auto text-xs">No. of Lines</p>
+          </div>
+          <button>
+            <img src={plus} alt="Increment line count" className="h-6" />
+          </button>
+        </div>
       </div>
       <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px] mb-8">
-        <div className={`flex flex-col ${toolboxOpen ? "visible" : "hidden"} h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden`}>                  
+        <div
+          className={`flex flex-col ${
+            toolboxOpen ? "visible" : "hidden"
+          } h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden`}
+        >
           <button className="w-full h-full">
             <img src={link} alt="Link" className="h-6 pt-1 m-auto" />
           </button>
@@ -143,7 +191,11 @@ export default function App() {
         </div>
         <div onClick={() => setToolboxOpen(!toolboxOpen)}>
           <button className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
-            <img src={open} alt="Open" className={`h-5 m-auto ${toolboxOpen ? 'rotate-180' : ''}`} />
+            <img
+              src={open}
+              alt="Open"
+              className={`h-5 m-auto ${toolboxOpen ? "rotate-180" : ""}`}
+            />
           </button>
         </div>
         <div className="flex flex-col h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden">
