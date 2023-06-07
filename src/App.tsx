@@ -34,7 +34,7 @@ export default function App() {
   const [toolboxOpen, setToolboxOpen] = useState(false);
   const [lineCount, setLineCount] = useState(1);
   const [stationCount, setStationCount] = useState(0);
-  const numbers = Array.from({ length: 24 }, (_, i) => i + 1);
+  const numbers = Array.from({ length: 32 }, (_, i) => i + 1);
   const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,7 +51,7 @@ export default function App() {
   };
 
   const scrollToRight = () => {
-    const newLineCount = Math.min(lineCount + 1, 24);
+    const newLineCount = Math.min(lineCount + 1, 32);
     numberRefs.current[newLineCount - 1]?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -143,12 +143,12 @@ export default function App() {
 
   return (
     <div className="h-screen text-white">
-      <div className="absolute top-0 left-0 m-[6px] flex flex-row gap-[6px] ">
+      <div className="absolute top-0 left-0 pt-[6px] px-[6px] w-screen flex flex-row gap-[6px] z-20">
         <div
           onClick={() =>
             setLogo(logos[Math.floor(Math.random() * logos.length)])
           }
-          className="flex flex-row h-full bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer"
+          className="flex flex-row h-full w-auto select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer"
         >
           <img
             className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
@@ -159,7 +159,7 @@ export default function App() {
             {logo[0]} <span className="font-bold tracking-wide">{logo[1]}</span>
           </h1>
         </div>
-        <div className="w-64 h-[65.39px] ">
+        <div className="w-auto h-[65.39px] ">
           <Combobox value={selectedCity} onChange={setSelectedCity}>
             <div className="flex flex-row gap-3 h-full p-2 px-3 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
               <Combobox.Button>
@@ -197,8 +197,8 @@ export default function App() {
             </Transition>
           </Combobox>
         </div>
-        <div className="flex flex-row gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
-          <div className="bg-[hsl(221,39%,11%)] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
+        <div className="flex flex-row gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] select-none">
+          <div className="bg-[hsl(221,39%,11%)] hover:bg-opacity-[60%] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
             <button className="w-full h-full" onClick={scrollToLeft}>
               <img
                 src={minus}
@@ -217,20 +217,20 @@ export default function App() {
                   <div
                     key={number}
                     ref={(el) => (numberRefs.current[index] = el)}
-                    className="text-xl text-center snap-center"
-                    style={{ minWidth: "60px" }}
+                    className="text-lg text-center snap-center"
+                    style={{ minWidth: "40px" }}
                   >
                     {number}
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-[hsl(221,39%,75%)] mx-auto bg-opacity-40 w-[36px] h-[36px] rounded-full"></div>
+            <div className="bg-[hsl(221,39%,70%)] mx-auto bg-opacity-40 w-[36px] h-[36px] rounded-full"></div>
             <p className="w-full text-[#DDD] text-xs text-center align-bottom">
               No. of Lines
             </p>
           </div>
-          <div className="bg-[hsl(221,39%,11%)] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
+          <div className="bg-[hsl(221,39%,11%)] hover:bg-opacity-[60%] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
             <button className="w-full h-full" onClick={scrollToRight}>
               <img
                 src={plus}
@@ -240,14 +240,17 @@ export default function App() {
             </button>
           </div>
         </div>
-        <div className="flex flex-row text-[#DDD] gap-2 px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+        <div className="flex flex-row text-[#DDD] w-[240px] px-4 gap-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
           <p className="m-auto text-xl">Station Count:</p>
           <p className="m-auto text-2xl font-semibold text-white">
             {stationCount}
           </p>
         </div>
+        <button className="bg-[hsl(221,39%,45%)] w-40 rounded-[20px]">
+          <p className="text-xl">Compute</p>
+        </button>
       </div>
-      <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px] mb-8">
+      <div className="flex flex-col gap-[6px] z-20 absolute bottom-0 right-0 m-[6px] mb-8">
         <div
           className={`flex flex-col ${
             toolboxOpen ? "visible" : "hidden"
@@ -278,13 +281,13 @@ export default function App() {
           </button>
         </div>
       </div>
-      <div className="w-full h-full">
+      <div className="z-0 w-full h-full">
         <img src={map_bg} alt="Los Angeles" />
       </div>
       {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
-      <div ref={mapContainer} className="map-container" /> */}
+      </div> 
+      <div ref={mapContainer} className="z-0 map-container" />*/}
     </div>
   );
 }
