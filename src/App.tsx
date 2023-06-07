@@ -33,6 +33,7 @@ export default function App() {
   const [logo, setLogo] = useState(logos[0]);
   const [toolboxOpen, setToolboxOpen] = useState(false);
   const [lineCount, setLineCount] = useState(1);
+  const [stationCount, setStationCount] = useState(0);
   const numbers = Array.from({ length: 24 }, (_, i) => i + 1);
   const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -217,7 +218,7 @@ export default function App() {
                     key={number}
                     ref={(el) => (numberRefs.current[index] = el)}
                     className="text-xl text-center snap-center"
-                    style={{ minWidth: '60px'}}
+                    style={{ minWidth: "60px" }}
                   >
                     {number}
                   </div>
@@ -225,7 +226,7 @@ export default function App() {
               </div>
             </div>
             <div className="bg-[hsl(221,39%,75%)] mx-auto bg-opacity-40 w-[36px] h-[36px] rounded-full"></div>
-            <p className="w-full text-xs text-center align-bottom">
+            <p className="w-full text-[#DDD] text-xs text-center align-bottom">
               No. of Lines
             </p>
           </div>
@@ -238,6 +239,12 @@ export default function App() {
               />
             </button>
           </div>
+        </div>
+        <div className="flex flex-row text-[#DDD] gap-2 px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+          <p className="m-auto text-xl">Station Count:</p>
+          <p className="m-auto text-2xl font-semibold text-white">
+            {stationCount}
+          </p>
         </div>
       </div>
       <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px] mb-8">
