@@ -33,18 +33,73 @@ export default function App() {
   const [logo, setLogo] = useState(logos[0]);
   const [toolboxOpen, setToolboxOpen] = useState(false);
   const [lineCount, setLineCount] = useState(1);
-  const numbers = Array.from({ length: 32 }, (_, i) => i + 1);
+  const numbers = Array.from({ length: 24 }, (_, i) => i + 1);
+  const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedCity, setSelectedCity] = useState("Los Angeles");
   const [query, setQuery] = useState("");
 
   const scrollToLeft = () => {
-    setLineCount(Math.max(lineCount - 1, 1));
-  }
+    const newLineCount = Math.max(lineCount - 1, 1);  
+    numberRefs.current[newLineCount - 1]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  };
 
   const scrollToRight = () => {
-    setLineCount(Math.min(lineCount + 1, 32));
-  }
+    const newLineCount = Math.min(lineCount + 1, 24);
+    numberRefs.current[newLineCount - 1]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  };
+
+  useEffect(() => {
+      numberRefs.current = numberRefs.current.slice(0, numbers.length);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollContainerRef.current) {
+        const halfWidth = scrollContainerRef.current.offsetWidth / 2;
+        const center = scrollContainerRef.current.scrollLeft + halfWidth;
+
+        let minDist = Infinity;
+        let closestIndex = -1;
+
+        numberRefs.current.forEach((numberRef, index) => {
+          if (numberRef) {
+            const childCenter =
+              numberRef.offsetLeft + numberRef.offsetWidth / 2;
+            const dist = Math.abs(center - childCenter);
+
+            if (dist < minDist) {
+              minDist = dist;
+              closestIndex = index;
+            }
+          }
+        });
+
+        if (closestIndex !== -1) {
+          setLineCount(closestIndex + 1);
+        }
+      }
+    };
+
+    scrollContainerRef.current?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      scrollContainerRef.current?.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(lineCount);
+  }, [lineCount]);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -141,39 +196,48 @@ export default function App() {
             </Transition>
           </Combobox>
         </div>
-        <div className="flex flex-row gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
-          <button>
-            <img src={minus} alt="Decrement line count" className="h-6" />
-          </button>
-          <div className="flex flex-col my-auto">
-            <div className="flex items-center">
-              <div className="flex flex-row w-48 overflow-x-scroll snap-mandatory snap-x no-scrollbar">
-                <div className="w-2 mx-5 text-lg snap-center"></div>
-                <div className="w-2 mx-5 text-lg snap-center"></div>
-                {numbers.map((number) => (
-                  <div key={number} className="w-2 mx-4 text-xl text-center snap-center">
-                    {number}
-                  </div>
-                ))}
-                <div className="w-2 mx-5 text-lg snap-center"></div>
-                <div className="w-2 mx-5 text-lg snap-center"></div>
-              </div>
-              {/* <div className="flex h-10 overflow-x-scroll w-60 no-scrollbar">
-                {numbers.map((number) => (
+        <div className="flex flex-row gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+          <div className="bg-[hsl(221,39%,11%)] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
+            <button className="w-full h-full" onClick={scrollToLeft}>
+              <img
+                src={minus}
+                alt="Increment line count"
+                className="h-6 m-auto"
+              />
+            </button>
+          </div>
+          <div className="relative w-40 mt-[7px]">
+            <div className="absolute flex items-center">
+              <div
+                ref={scrollContainerRef}
+                className="flex flex-row w-40 px-20 overflow-x-scroll snap-mandatory snap-x no-scrollbar"
+              >
+                {numbers.map((number, index) => (
                   <div
                     key={number}
-                    className={`w-12 mx-auto h-10 flex items-center justify-center border border-gray-300 ${number === lineCount ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+                    ref={(el) => (numberRefs.current[index] = el)}
+                    className="text-xl text-center snap-center"
+                    style={{ minWidth: '60px'}}
                   >
                     {number}
                   </div>
                 ))}
-              </div> */}
+              </div>
             </div>
-            <p className="mx-auto text-xs">No. of Lines</p>
+            <div className="bg-[hsl(221,39%,75%)] mx-auto bg-opacity-40 w-[36px] h-[36px] rounded-full"></div>
+            <p className="w-full text-xs text-center align-bottom">
+              No. of Lines
+            </p>
           </div>
-          <button>
-            <img src={plus} alt="Increment line count" className="h-6" />
-          </button>
+          <div className="bg-[hsl(221,39%,11%)] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
+            <button className="w-full h-full" onClick={scrollToRight}>
+              <img
+                src={plus}
+                alt="Increment line count"
+                className="h-6 m-auto"
+              />
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-[6px] absolute bottom-0 right-0 m-[6px] mb-8">
