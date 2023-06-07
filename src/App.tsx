@@ -142,7 +142,7 @@ export default function App() {
     })
 
   return (
-    <div className="h-screen text-white">
+    <div className="h-screen w-screen overflow-hidden text-white">
       <div className="absolute top-0 left-0 pt-[6px] px-[6px] w-screen flex flex-row gap-[6px] z-20">
         <div
           onClick={() =>
@@ -159,7 +159,7 @@ export default function App() {
             {logo[0]} <span className="font-bold tracking-wide">{logo[1]}</span>
           </h1>
         </div>
-        <div className="w-auto h-[65.39px] ">
+        <div className="w-auto h-auto ">
           <Combobox value={selectedCity} onChange={setSelectedCity}>
             <div className="flex flex-row gap-3 h-full p-2 px-3 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
               <Combobox.Button>
@@ -197,7 +197,7 @@ export default function App() {
             </Transition>
           </Combobox>
         </div>
-        <div className="flex flex-row gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] select-none">
+        <div className="flex flex-row h-auto gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] select-none">
           <div className="bg-[hsl(221,39%,11%)] hover:bg-opacity-[60%] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
             <button className="w-full h-full" onClick={scrollToLeft}>
               <img
@@ -207,11 +207,11 @@ export default function App() {
               />
             </button>
           </div>
-          <div className="relative w-40 mt-[7px]">
+          <div className="relative w-[200px] mt-[7px]">
             <div className="absolute flex items-center">
               <div
                 ref={scrollContainerRef}
-                className="flex flex-row w-40 px-20 overflow-x-scroll snap-mandatory snap-x no-scrollbar"
+                className="flex flex-row w-[200px] px-20 overflow-x-scroll snap-mandatory snap-x no-scrollbar"
               >
                 {numbers.map((number, index) => (
                   <div
@@ -225,7 +225,7 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <div className="bg-[hsl(221,39%,70%)] mx-auto bg-opacity-40 w-[36px] h-[36px] rounded-full"></div>
+            <div className="bg-[hsl(221,39%,70%)] mx-auto bg-opacity-40 w-7 h-7 rounded-full"></div>
             <p className="w-full text-[#DDD] text-xs text-center align-bottom">
               No. of Lines
             </p>
@@ -240,13 +240,13 @@ export default function App() {
             </button>
           </div>
         </div>
-        <div className="flex flex-row text-[#DDD] w-[240px] px-4 gap-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+        <div className="flex flex-row h-auto text-[#DDD] w-[240px] px-4 gap-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
           <p className="m-auto text-xl">Station Count:</p>
           <p className="m-auto text-2xl font-semibold text-white">
             {stationCount}
           </p>
         </div>
-        <button className="bg-[hsl(221,39%,45%)] w-40 rounded-[20px]">
+        <button className="bg-[hsl(221,39%,45%)] h-auto w-40 rounded-[20px]">
           <p className="text-xl">Compute</p>
         </button>
       </div>
