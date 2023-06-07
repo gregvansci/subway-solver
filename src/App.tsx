@@ -10,6 +10,7 @@ import minus from "./assets/minus.svg";
 import open from "./assets/up.svg";
 import download from "./assets/download.svg";
 import link from "./assets/link.svg";
+import hint from "./assets/hint.svg";
 
 import { Combobox, Transition } from "@headlessui/react";
 
@@ -135,7 +136,7 @@ export default function App() {
   return (
     <div className="h-screen w-screen overflow-hidden text-white">
       <div className="absolute top-0 left-0 pt-[6px] px-[6px] w-screen flex flex-row gap-[6px] z-20">
-        <div className="flex flex-row justify-between h-full min-w-[130px] select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer">
+        <div className="flex flex-row justify-between h-full min-w-[8.125rem] select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer">
           <img
             className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
             src={logomark}
@@ -234,7 +235,7 @@ export default function App() {
           </p>
         </div>
         <button 
-          className={`bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${computeDisabled ? 'bg-opacity-40 cursor-not-allowed' : 'bg-opacity-60 hover:bg-opacity-75'} h-auto w-40 rounded-[20px] px-8 inset-10`} 
+          className={`bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(221,39%,11%)] focus-visible:ring-opacity-75 ${computeDisabled ? 'bg-opacity-40 cursor-not-allowed' : 'bg-opacity-60 hover:bg-opacity-75'} h-auto w-40 rounded-[20px] px-8 inset-10`} 
           disabled={computeDisabled}
         >
           <p className="text-xl font-medium">Compute</p>
@@ -247,27 +248,28 @@ export default function App() {
           } h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden`}
         >
           <button className="w-full h-full">
-            <img src={link} alt="Link" className="h-6 pt-1 m-auto" />
+            <img src={link} alt="Link" className="h-7 pt-1 m-auto" />
           </button>
           <button className="w-full h-full">
             <img src={download} alt="Download" className="h-6 pb-1 m-auto" />
           </button>
         </div>
-        <div onClick={() => setToolboxOpen(!toolboxOpen)}>
-          <button className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
-            <img
-              src={open}
-              alt="Open"
-              className={`h-5 m-auto ${toolboxOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-        </div>
+        <button onClick={() => setToolboxOpen(!toolboxOpen)} className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
+          <img
+            src={open}
+            alt="Open"
+            className={`h-6 m-auto ${toolboxOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+        <button className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
+          <img src={hint} alt="Hint" className="h-6 m-auto" />
+        </button>
         <div className="flex flex-col h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden">
           <button className="w-full h-full">
-            <img src={plus} alt="Zoom In" className="pt-1 m-auto h-7" />
+            <img src={plus} alt="Zoom In" className="pt-1 m-auto h-8" />
           </button>
           <button className="w-full h-full">
-            <img src={minus} alt="Zoom Out" className="pb-1 m-auto h-7" />
+            <img src={minus} alt="Zoom Out" className="pb-1 m-auto h-8" />
           </button>
         </div>
       </div>
