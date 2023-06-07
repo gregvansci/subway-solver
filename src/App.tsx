@@ -27,6 +27,7 @@ export default function App() {
   const numbers = Array.from({ length: 32 }, (_, i) => i + 1);
   const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const [computeDisabled, setComputeDisabled] = useState(false);
 
   const [selectedCity, setSelectedCity] = useState("Los Angeles");
   const [query, setQuery] = useState("");
@@ -232,7 +233,10 @@ export default function App() {
             {stationCount}
           </p>
         </div>
-        <button className="bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 bg-opacity-60 hover:bg-opacity-75 h-auto w-40 rounded-[20px] px-8 inset-10">
+        <button 
+          className={`bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${computeDisabled ? 'bg-opacity-40 cursor-not-allowed' : 'bg-opacity-60 hover:bg-opacity-75'} h-auto w-40 rounded-[20px] px-8 inset-10`} 
+          disabled={computeDisabled}
+        >
           <p className="text-xl font-medium">Compute</p>
         </button>
       </div>
