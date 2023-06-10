@@ -12,7 +12,7 @@ import download from "./assets/download.svg";
 import link from "./assets/link.svg";
 import hint from "./assets/hint.svg";
 
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Dialog, Transition } from "@headlessui/react";
 
 mapboxgl.accessToken = mapbox_access.token;
 
@@ -29,6 +29,7 @@ export default function App() {
   const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [computeDisabled, setComputeDisabled] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(true);
 
   const [selectedCity, setSelectedCity] = useState("Los Angeles");
   const [query, setQuery] = useState("");
@@ -133,8 +134,12 @@ export default function App() {
       return city.toLowerCase().includes(query.toLowerCase())
     })
 
+  function openInstructions()  { setShowInstructions(true) }
+
+  function closeInstructions() { setShowInstructions(false) }
+
   return (
-    <div className="h-screen w-screen overflow-hidden text-white">
+    <div className="w-screen h-screen overflow-hidden text-white">
       <div className="absolute top-0 left-0 pt-[6px] px-[6px] w-screen flex flex-row gap-[6px] z-20">
         <div className="flex flex-row justify-between h-full min-w-[8.125rem] select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer">
           <img
@@ -142,7 +147,7 @@ export default function App() {
             src={logomark}
             alt="Logomark"
           />
-          <div className="flex flex-col min-w-0 text-lg my-auto leading-none text-center">
+          <div className="flex flex-col min-w-0 my-auto text-lg leading-none text-center">
             <h1 className="font-normal">SUBWAY</h1>
             <h1 className="font-bold tracking-wide">SOLVER</h1>
           </div>
@@ -234,8 +239,12 @@ export default function App() {
             {stationCount}
           </p>
         </div>
-        <button 
-          className={`bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(221,39%,11%)] focus-visible:ring-opacity-75 ${computeDisabled ? 'bg-opacity-40 cursor-not-allowed' : 'bg-opacity-60 hover:bg-opacity-75'} h-auto w-40 rounded-[20px] px-8 inset-10`} 
+        <button
+          className={`bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(221,39%,11%)] focus-visible:ring-opacity-75 ${
+            computeDisabled
+              ? "bg-opacity-40 cursor-not-allowed"
+              : "bg-opacity-60 hover:bg-opacity-75"
+          } h-auto w-40 rounded-[20px] px-8 inset-10`}
           disabled={computeDisabled}
         >
           <p className="text-xl font-medium">Compute</p>
@@ -248,34 +257,95 @@ export default function App() {
           } h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden`}
         >
           <button className="w-full h-full">
-            <img src={link} alt="Link" className="h-7 pt-1 m-auto" />
+            <img src={link} alt="Link" className="pt-1 m-auto h-7" />
           </button>
           <button className="w-full h-full">
             <img src={download} alt="Download" className="h-6 pb-1 m-auto" />
           </button>
         </div>
-        <button onClick={() => setToolboxOpen(!toolboxOpen)} className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
+        <button
+          onClick={() => setToolboxOpen(!toolboxOpen)}
+          className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]"
+        >
           <img
             src={open}
             alt="Open"
             className={`h-6 m-auto ${toolboxOpen ? "rotate-180" : ""}`}
           />
         </button>
-        <button className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]">
+        <button
+          className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]"
+          onClick={openInstructions}
+        >
           <img src={hint} alt="Hint" className="h-6 m-auto" />
         </button>
         <div className="flex flex-col h-20 w-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%] overflow-hidden">
           <button className="w-full h-full">
-            <img src={plus} alt="Zoom In" className="pt-1 m-auto h-8" />
+            <img src={plus} alt="Zoom In" className="h-8 pt-1 m-auto" />
           </button>
           <button className="w-full h-full">
-            <img src={minus} alt="Zoom Out" className="pb-1 m-auto h-8" />
+            <img src={minus} alt="Zoom Out" className="h-8 pb-1 m-auto" />
           </button>
         </div>
       </div>
       <div className="z-0 w-full h-full">
         <img src={map_bg} alt="Los Angeles" />
       </div>
+      <Transition appear show={showInstructions} as={Fragment}>
+        <Dialog as="div" className="relative z-30" onClose={closeInstructions}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Subway Solver Instructions
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      Part 1
+                    </p>
+                  </div>
+                  <Dialog.Description>
+                    Part 2
+                  </Dialog.Description>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeInstructions}
+                    >
+                      Get Started
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div> 
