@@ -316,25 +316,68 @@ export default function App() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Panel className="w-full max-w-xl p-6 px-12 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="mb-8 text-2xl font-medium leading-6 text-center text-gray-900"
                   >
-                    Subway Solver Instructions
+                    Welcome to Subway Solver
                   </Dialog.Title>
-                  <div className="mt-2">
+                  {/* <div className="mt-2">
                     <p className="text-sm text-gray-500">
                       Part 1
                     </p>
-                  </div>
+                  </div> */}
                   <Dialog.Description>
-                    Part 2
+                    <ol type="1" className="list-decimal">
+                      <li className="text-gray-700">
+                        <span className="font-bold text-black">
+                          Select a City:
+                        </span>{" "}
+                        Begin by typing a city into the search bar.
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-bold text-black">
+                          Add Locations:
+                        </span>{" "}
+                        Click on the map to add desired station locations.
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-bold text-black">
+                          Specify Number of Lines:
+                        </span>{" "}
+                        Adjust the slider to select the number of lines you'd
+                        like your network to contain.
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-bold text-black">
+                          Designate Important Locations (optional):
+                        </span>{" "}
+                        Assign specific flags to locations to indicate their use
+                        or importance. For example, you can flag a location as a
+                        "Transfer" or "Airport" station.
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-bold text-black">
+                          Calculate Optimal Network:
+                        </span>{" "}
+                        When you're ready, click the "Compute" button to
+                        generate the most efficient subway lines based on your
+                        inputs.
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-bold text-black">
+                          Optimize your Network:
+                        </span>{" "}
+                        Make adjustments to your network and recalculate as
+                        needed.
+                      </li>
+                    </ol>
                   </Dialog.Description>
-                  <div className="mt-4">
+                  <div className="flex w-full mt-6">
                     <button
                       type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center px-4 py-2 ml-auto font-medium bg-[hsl(221,39%,65%)] text-[hsl(221,39%,95%)] border border-transparent rounded-md text-md hover:bg-[hsl(221,39%,55%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeInstructions}
                     >
                       Get Started

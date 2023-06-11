@@ -27,3 +27,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+li {
+  margin-bottom: 0.75rem;
+}
