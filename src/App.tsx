@@ -60,6 +60,24 @@ export default function App() {
     });
   };
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (container) {
+        container.scrollLeft += e.deltaY;
+      }
+    };
+
+    if (container) {
+      container.addEventListener("wheel", handleWheel);
+      return () => {
+        container.removeEventListener("wheel", handleWheel);
+      };
+    }
+  }, []);
+
 
   useEffect(() => {
       numberRefs.current = numberRefs.current.slice(0, numbers.length);
