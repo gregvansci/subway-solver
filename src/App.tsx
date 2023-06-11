@@ -52,6 +52,15 @@ export default function App() {
     });
   };
 
+  const scrollToIndex = (number: number) => {
+    numberRefs.current[number - 1]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  };
+
+
   useEffect(() => {
       numberRefs.current = numberRefs.current.slice(0, numbers.length);
   }, []);
@@ -208,9 +217,10 @@ export default function App() {
               >
                 {numbers.map((number, index) => (
                   <div
+                    onClick={() => scrollToIndex(index + 1)}
                     key={number}
                     ref={(el) => (numberRefs.current[index] = el)}
-                    className="text-lg text-center snap-center"
+                    className="text-lg text-center cursor-pointer snap-center"
                     style={{ minWidth: "40px" }}
                   >
                     {number}
