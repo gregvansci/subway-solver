@@ -62,14 +62,15 @@ export default function App() {
 
   useEffect(() => {
     const container = scrollContainerRef.current;
-
+  
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (container) {
-        container.scrollLeft += e.deltaY;
+        const direction = Math.sign(e.deltaY);
+        container.scrollLeft += direction * 40; // change 40 to the amount you want to scroll
       }
     };
-
+  
     if (container) {
       container.addEventListener("wheel", handleWheel);
       return () => {
@@ -77,7 +78,6 @@ export default function App() {
       };
     }
   }, []);
-
 
   useEffect(() => {
       numberRefs.current = numberRefs.current.slice(0, numbers.length);
