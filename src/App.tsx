@@ -30,6 +30,7 @@ export default function App() {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [computeDisabled, setComputeDisabled] = useState(false);
   const [showInstructions, setShowInstructions] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [selectedCity, setSelectedCity] = useState("Los Angeles");
   const [query, setQuery] = useState("");
@@ -167,8 +168,12 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen overflow-hidden text-white">
+
+      {/* HEADER */}
       <div className="absolute top-0 left-0 pt-[6px] px-[6px] w-screen flex flex-row gap-[6px] z-20">
-        <div className="flex flex-row justify-between h-full min-w-[8.125rem] select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%] cursor-pointer">
+        
+        {/* LOGO COMPONENT */}
+        <div className="flex flex-row gap-[6px] h-[3.5rem] min-w-[8.375rem] select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%]">
           <img
             className="h-10 my-auto border-2 rounded-full border-[hsl(244,27%,20%)]"
             src={logomark}
@@ -179,9 +184,13 @@ export default function App() {
             <h1 className="font-bold tracking-wide">SOLVER</h1>
           </div>
         </div>
+
+        {/* CITY SEARCH BAR */}
         <div className="w-full h-auto">
           <Combobox value={selectedCity} onChange={setSelectedCity}>
-            <div className="flex flex-row gap-3 h-full p-2 px-3 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
+
+            {/* SEARCH BAR */}
+            <div className="flex flex-row gap-3 h-[3.5rem] p-2 px-3 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
               <Combobox.Button>
                 <img
                   src={search}
@@ -196,6 +205,8 @@ export default function App() {
                 onChange={(event) => setQuery(event.currentTarget.value)}
               />
             </div>
+
+            {/* DROPDOWN */}
             <Transition
               as={Fragment}
               leave="transition ease-in duration-100"
@@ -203,12 +214,12 @@ export default function App() {
               leaveTo="opacity-0"
               afterLeave={() => setQuery("")}
             >
-              <Combobox.Options className="w-64 h-auto p-2 mt-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+              <Combobox.Options className="w-full h-auto py-2 mt-[6px] bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
                 {filteredCities.map((city) => (
                   <Combobox.Option
                     key={city}
                     value={city}
-                    className="w-full h-8 px-2 text-xl bg-transparent outline-none align-center"
+                    className="w-full py-1 px-4 text-xl m-0 bg-transparent outline-none align-center cursor-pointer hover:bg-[hsl(221,39%,55%)]"
                   >
                     {city}
                   </Combobox.Option>
@@ -217,7 +228,9 @@ export default function App() {
             </Transition>
           </Combobox>
         </div>
-        <div className="flex flex-row h-auto gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] select-none">
+
+        {/* LINE COUNT SELECTOR */}
+        <div className="flex flex-row h-[3.5rem] gap-[6px] gap-between px-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] select-none">
           <div className="bg-[hsl(221,39%,11%)] hover:bg-opacity-[60%] bg-opacity-[45%] rounded-full w-10 h-10 m-auto">
             <button className="w-full h-full" onClick={scrollToLeft}>
               <img
@@ -261,23 +274,29 @@ export default function App() {
             </button>
           </div>
         </div>
-        <div className="flex flex-row h-auto text-[#DDD] w-[240px] px-4 gap-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
+
+        {/* STATION COUNT */}
+        <div className="flex flex-row h-[3.5rem] text-[#DDD] w-[240px] select-none px-4 gap-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
           <p className="m-auto text-xl whitespace-nowrap">Station Count:</p>
           <p className="m-auto text-2xl font-semibold text-white">
             {stationCount}
           </p>
         </div>
+
+        {/* COMPUTE BUTTON */}
         <button
           className={`bg-[hsl(221,39%,45%)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(221,39%,11%)] focus-visible:ring-opacity-75 ${
             computeDisabled
               ? "bg-opacity-40 cursor-not-allowed"
               : "bg-opacity-60 hover:bg-opacity-75"
-          } h-auto w-40 rounded-[20px] px-8 inset-10`}
+          } h-[3.5rem] w-40 rounded-[20px] px-8 inset-10`}
           disabled={computeDisabled}
         >
           <p className="text-xl font-medium">Compute</p>
         </button>
       </div>
+
+      {/* SIDE PANEL */}
       <div className="flex flex-col gap-[6px] z-20 absolute bottom-0 right-0 m-[6px] mb-8">
         <div
           className={`flex flex-col ${
@@ -316,9 +335,13 @@ export default function App() {
           </button>
         </div>
       </div>
+
+      {/* MAP IMAGE */}
       <div className="z-0 w-full h-full">
         <img src={map_bg} alt="Los Angeles" />
       </div>
+      
+      {/* WELCOME MODAL */}
       <Transition appear show={showInstructions} as={Fragment}>
         <Dialog as="div" className="relative z-30" onClose={closeInstructions}>
           <Transition.Child
@@ -417,10 +440,14 @@ export default function App() {
           </div>
         </Dialog>
       </Transition>
+
+      {/* EXAMPLE STATS */}
       {/* <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div> 
-      <div ref={mapContainer} className="z-0 map-container" />*/}
+      </div>  */}
+
+      {/* MAP CONTAINER */}
+      {/* <div ref={mapContainer} className="z-0 map-container" /> */}
     </div>
   );
 }
