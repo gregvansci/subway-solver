@@ -7,7 +7,7 @@ import logomark from "./assets/logomark.png";
 import search from "./assets/city.svg";
 import plus from "./assets/plus.svg";
 import minus from "./assets/minus.svg";
-import open from "./assets/up.svg";
+import chevron from "./assets/up.svg";
 import download from "./assets/download.svg";
 import link from "./assets/link.svg";
 import hint from "./assets/hint.svg";
@@ -168,10 +168,8 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen overflow-hidden text-white">
-
       {/* HEADER */}
       <div className="absolute top-0 left-0 pt-[6px] px-[6px] w-screen flex flex-row gap-[6px] z-20">
-        
         {/* LOGO COMPONENT */}
         <div className="flex flex-row gap-[6px] h-[3.5rem] min-w-[8.375rem] select-none bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg px-2 py-[7px] bg-opacity-[67%]">
           <img
@@ -188,14 +186,13 @@ export default function App() {
         {/* CITY SEARCH BAR */}
         <div className="w-full h-auto">
           <Combobox value={selectedCity} onChange={setSelectedCity}>
-
             {/* SEARCH BAR */}
-            <div className="flex flex-row gap-3 h-[3.5rem] p-2 px-3 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
+            <div className="flex flex-row gap-3 h-[3.5rem] py-2 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%] outline-none">
               <Combobox.Button>
                 <img
                   src={search}
                   alt="search"
-                  className="w-6 h-6"
+                  className="w-6 h-6 mx-3"
                   aria-hidden="true"
                 />
               </Combobox.Button>
@@ -203,7 +200,16 @@ export default function App() {
                 className="w-full h-full pb-[4px] text-2xl bg-transparent outline-none align-center"
                 placeholder="Choose a city"
                 onChange={(event) => setQuery(event.currentTarget.value)}
+                onClick={(event) => event.currentTarget.select()}
               />
+              <Combobox.Button>
+                <img
+                  src={chevron}
+                  alt="chevron"
+                  className="w-6 h-6 mr-3 rotate-180"
+                  aria-hidden="true"
+                />
+              </Combobox.Button>
             </div>
 
             {/* DROPDOWN */}
@@ -315,7 +321,7 @@ export default function App() {
           className="w-10 h-10 bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-full bg-opacity-[67%]"
         >
           <img
-            src={open}
+            src={chevron}
             alt="Open"
             className={`h-6 m-auto ${toolboxOpen ? "rotate-180" : ""}`}
           />
@@ -340,7 +346,7 @@ export default function App() {
       <div className="z-0 w-full h-full">
         <img src={map_bg} alt="Los Angeles" />
       </div>
-      
+
       {/* WELCOME MODAL */}
       <Transition appear show={showInstructions} as={Fragment}>
         <Dialog as="div" className="relative z-30" onClose={closeInstructions}>
