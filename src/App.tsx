@@ -19,9 +19,9 @@ mapboxgl.accessToken = mapbox_access.token;
 export default function App() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [lng, setLng] = useState(cities["Los Angeles"].lon);
-  const [lat, setLat] = useState(cities["Los Angeles"].lat);
-  const [zoom, setZoom] = useState(cities["Los Angeles"].zoom);
+  const [lng, setLng] = useState(cities[0].longitude);
+  const [lat, setLat] = useState(cities[0].latitude);
+  const [zoom, setZoom] = useState(cities[0].zoom);
   const [toolboxOpen, setToolboxOpen] = useState(false);
   const [lineCount, setLineCount] = useState(1);
   const [stationCount, setStationCount] = useState(0);
@@ -156,11 +156,11 @@ export default function App() {
   });
 
   const filteredCities =
-    query === ''
-    ? Object.keys(cities)
-    : Object.keys(cities).filter((city) => {
-      return city.toLowerCase().includes(query.toLowerCase())
-    })
+    query === ""
+      ? cities
+      : cities.filter((city) =>
+          city.city.toLowerCase().startsWith(query.toLowerCase())
+        );
 
   function openInstructions()  { setShowInstructions(true) }
 
@@ -223,11 +223,14 @@ export default function App() {
               <Combobox.Options className="w-full h-auto py-2 mt-[6px] bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
                 {filteredCities.map((city) => (
                   <Combobox.Option
-                    key={city}
-                    value={city}
-                    className="w-full py-1 px-4 text-xl m-0 bg-transparent outline-none align-center cursor-pointer hover:bg-[hsl(221,39%,55%)]"
+                    key={city.city}
+                    value={city.city}
+                    className="w-full py-1 px-4 text-xl flex flex-row justify-between m-0 bg-transparent outline-none align-center cursor-pointer hover:bg-[hsl(221,39%,55%)]"
                   >
-                    {city}
+                    {city.city}{" "}
+                    <span className="my-auto text-base text-gray-300">
+                      {city.region == "" ? "" : city.region + ","} {city.country}
+                    </span>
                   </Combobox.Option>
                 ))}
               </Combobox.Options>
