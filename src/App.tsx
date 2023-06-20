@@ -221,18 +221,25 @@ export default function App() {
               afterLeave={() => setQuery("")}
             >
               <Combobox.Options className="w-full h-auto py-2 mt-[6px] bg-[hsl(221,39%,11%)] border-[1px] border-[hsl(221,39%,61%)] rounded-lg bg-opacity-[67%]">
-                {filteredCities.map((city) => (
-                  <Combobox.Option
-                    key={city.city}
-                    value={city.city}
-                    className="w-full py-1 px-4 text-xl flex flex-row justify-between m-0 bg-transparent outline-none align-center cursor-pointer hover:bg-[hsl(221,39%,55%)]"
-                  >
-                    {city.city}{" "}
-                    <span className="my-auto text-base text-gray-300">
-                      {city.region == "" ? "" : city.region + ","} {city.country}
-                    </span>
-                  </Combobox.Option>
-                ))}
+                {filteredCities.length > 0 ? (
+                  filteredCities.map((city) => (
+                    <Combobox.Option
+                      key={city.city}
+                      value={city.city}
+                      className="w-full py-1 px-4 text-xl flex flex-row justify-between m-0 bg-transparent outline-none align-center cursor-pointer hover:bg-[hsl(221,39%,55%)]"
+                    >
+                      {city.city}{" "}
+                      <span className="my-auto text-base text-gray-300">
+                        {city.region == "" ? "" : city.region + ","}{" "}
+                        {city.country}
+                      </span>
+                    </Combobox.Option>
+                  ))
+                ) : (
+                  <div className="w-full px-4 py-1 text-xl text-gray-300">
+                    City not found
+                  </div>
+                )}
               </Combobox.Options>
             </Transition>
           </Combobox>

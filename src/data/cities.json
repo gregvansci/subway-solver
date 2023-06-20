@@ -1,66 +1,82 @@
 [
   {
-    "city": "Los Angeles",
-    "region": "CA",
-    "country": "United States",
-    "latitude": 34.05,
-    "longitude": -118.25,
-    "zoom": 9.5
-  },
-  {
-    "city": "San Francisco",
-    "region": "CA",
-    "country": "United States",
-    "latitude": 37.77,
-    "longitude": -122.42,
-    "zoom": 10
-  },
-  {
-    "city": "New York City",
-    "region": "NY",
-    "country": "United States",
-    "latitude": 40.71,
-    "longitude": -74.01,
-    "zoom": 10
-  },
-  {
-    "city": "Chicago",
-    "region": "IL",
-    "country": "United States",
-    "latitude": 41.88,
-    "longitude": -87.63,
-    "zoom": 10
-  },
-  {
-    "city": "Washington",
-    "region": "DC",
-    "country": "United States",
-    "latitude": 38.9,
-    "longitude": -77.03,
-    "zoom": 10
-  },
-  {
     "city": "Boston",
-    "region": "MA",
     "country": "United States",
+    "region": "MA",
     "latitude": 42.36,
     "longitude": -71.06,
     "zoom": 10
   },
   {
-    "city": "Seattle",
-    "region": "WA",
+    "city": "Chicago",
     "country": "United States",
+    "region": "IL",
+    "latitude": 41.88,
+    "longitude": -87.63,
+    "zoom": 10
+  },
+  {
+    "city": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "region": "",
+    "latitude": 10.78,
+    "longitude": 106.69,
+    "zoom": 10
+  },
+  {
+    "city": "Los Angeles",
+    "country": "United States",
+    "region": "CA",
+    "latitude": 34.05,
+    "longitude": -118.25,
+    "zoom": 9.5
+  },
+  {
+    "city": "New York City",
+    "country": "United States",
+    "region": "NY",
+    "latitude": 40.71,
+    "longitude": -74.01,
+    "zoom": 10
+  },
+  {
+    "city": "Portland",
+    "country": "United States",
+    "region": "OR",
+    "latitude": 45.52,
+    "longitude": -122.68,
+    "zoom": 10
+  },
+  {
+    "city": "Portland",
+    "country": "United States",
+    "region": "ME",
+    "latitude": 43.66,
+    "longitude": -70.25,
+    "zoom": 10
+  },
+  {
+    "city": "San Francisco",
+    "country": "United States",
+    "region": "CA",
+    "latitude": 37.77,
+    "longitude": -122.42,
+    "zoom": 10
+  },
+  {
+    "city": "Seattle",
+    "country": "United States",
+    "region": "WA",
     "latitude": 47.61,
     "longitude": -122.33,
     "zoom": 10
   },
   {
-    "city": "Ho Chi Minh City",
-    "region": "",
-    "country": "Vietnam",
-    "latitude": 10.78,
-    "longitude": 106.69,
+    "city": "Washington",
+    "country": "United States",
+    "region": "DC",
+    "latitude": 38.9,
+    "longitude": -77.03,
     "zoom": 10
   }
 ]
